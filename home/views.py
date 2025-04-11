@@ -12,10 +12,7 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 class HomeAllViews(APIView):
-    # def get(self, req):
-    #     # req.query_params['name']for get query params (after ? in urls like ?name=Mehrshad)
-    #     name = req.query_params.get('name', "Ali")
-    #     return Response({'name': name})
+
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
