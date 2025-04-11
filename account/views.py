@@ -18,11 +18,6 @@ from rest_framework_simplejwt.tokens import Token, RefreshToken
 class UserRegisterView(APIView):
     serializer_class = serializers.UserRegisterSerializer
 
-    # def get(self, request):
-    #     user = User.objects.all()
-    #     ser_data = serializers.UserRegisterSerializer(instance=user, many=True)
-    #     return Response(
-    #         data={"data": ser_data.data, "user": request.user.username if request.user.is_authenticated else None})
 
     def post(self, request):
         ser_data = serializers.UserRegisterSerializer(data=request.data)  # Use correct serializer import
@@ -30,27 +25,6 @@ class UserRegisterView(APIView):
             ser_data.save()  # Call serializer's save() method, which hashes the password
             return Response(data={'user registered with this info': ser_data.data})
         return Response(data=ser_data.errors)
-
-
-# class UserLoginView(APIView):
-#     def get(self, request):
-#         return Response(data={"user": request.user.username})
-#
-#     def post(self, request):
-#         serializer = serializers.UserLoginSerializer(data=request.data)
-#         if serializer.is_valid():
-#             username = serializer.validated_data['username']
-#             password = serializer.validated_data['password']
-#             user = authenticate(request=request, username=username, password=password)
-#             if user is not None:
-#                 login(request, user)  # Log the user into the session and update sessions
-#                 Token.objects.get_or_create(user=user)
-#                 return Response(
-#                     {'data': serializer.data},
-#                     status=status.HTTP_200_OK
-#                 )
-#             return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserViewset(viewsets.ViewSet):
@@ -127,9 +101,7 @@ class RefreshTokenView(APIView):
 
 
 class UserLogoutView(APIView):
-    """
-        just send token to this class
-    """
+
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
