@@ -22,7 +22,7 @@ class UserRegisterView(APIView):
     def post(self, request):
         ser_data = serializers.UserRegisterSerializer(data=request.data)  # Use correct serializer import
         if ser_data.is_valid():
-            ser_data.save()  # Call serializer's save() method, which hashes the password
+            ser_data.save() 
             return Response(data={'user registered with this info': ser_data.data})
         return Response(data=ser_data.errors)
 
