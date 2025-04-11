@@ -11,7 +11,7 @@ class Person(models.Model):
     creation = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-updated']  # Order by most recent updates
+        ordering = ['-updated']
 
     def __str__(self):
         return self.name
@@ -34,7 +34,6 @@ class Question(models.Model):
 
 class Answer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='a_user')
-    # related_name = when we want to access question in answers we use related name in question query
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question')
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
