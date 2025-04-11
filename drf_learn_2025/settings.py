@@ -139,8 +139,7 @@ REST_FRAMEWORK = {
         'user': '1000/day'
     },
     'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',  # use on production mode
-        # 'rest_framework.renderers.BrowsableAPIRenderer',  # use on development mode
+        'rest_framework.renderers.JSONRenderer', 
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
@@ -150,15 +149,12 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=2),
     "REFRESH_TOKEN_LIFETIME": timedelta(weeks=2),
     "ROTATE_REFRESH_TOKENS": True,
-    # هربار که از رفرش استفاده میشود یک رفرش استفاده شده باطل میشود و یک توکن رفرش جدید میدهد
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": True,
 
 }
 # endregion
-# AUTHENTICATION_BACKENDS = [
-#     'django.contrib.auth.backends.ModelBackend',
-# ]
+
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Twitter',
     'DESCRIPTION': 'like twitter',
