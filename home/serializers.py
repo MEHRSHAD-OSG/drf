@@ -7,16 +7,11 @@ from .custom_relational_fields import EmailAndUsernameFields
 class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Person
-        # fields = '__all__'
-        exclude = ['id', 'creation']  # show all fields except id
+        exclude = ['id', 'creation']
 
 
 class QuestionSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)  # from user model return any thing on __str__
-
-    # user = serializers.SlugRelatedField(read_only=True,
-    #                                     slug_field='email')  # from user model show any thing in slug field
-    # user = EmailAndUsernameFields(read_only=True)
+    user = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = models.Question
@@ -29,7 +24,6 @@ class QuestionSerializer(serializers.ModelSerializer):
     answers = serializers.SerializerMethodField(method_name="all_answers")
 
     def all_answers(self, obj):
-        # obj => all questions
         result = obj.question.all()
         return AnswerSerializer(instance=result, many=True).data
 
@@ -55,7 +49,6 @@ class AnswerSerializer(serializers.ModelSerializer):
         request = self.context['request']
         question = self.context['question']
         if 'user' in self.initial_data:
-            # print("=" * 90, self.initial_data) # initial_data => all data send from client
             raise serializers.ValidationError({"user": "You cannot send this field."})
         if 'question' in self.initial_data:
             raise serializers.ValidationError({"question": "You cannot send this field."})
